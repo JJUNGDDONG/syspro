@@ -1,0 +1,2 @@
+txt file
+linux vi file
