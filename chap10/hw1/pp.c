@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 struct node{
 	int data;
 	struct node *next;
@@ -31,9 +31,11 @@ int show(struct node *top){
 }
 int main(){
 	int num;
-	scanf("%d", &num);
-	do{
-		scanf("%d",  &num);
-	}while(num
-
+	for(int i = 0; i < 3; i++){
+		scanf("%d", &num);
+		push(struct node *top, num);
+	
+	}
+	show(node);
+	return 0;
 }
