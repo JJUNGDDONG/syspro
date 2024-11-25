@@ -1,42 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include
-struct node{
-	int data;
-	struct node *next;
+
+struct node {
+    int data;
+    struct node *next;
 };
-void push(struct node *top, int data){
-	struct node *node = (struct node*) malloc(sizeof(struct node));
-	node -> data = data;
-	node -> next = top;
-}
-int pop(struct node *top){
-	if(top == NULL){
-		printf("under flow\n");
-		return 1;
-	}
-	struct node *node  = top;
-	int data = node -> data;
-	top = node -> next;
-	free(node);
-	return data;
+
+void push(struct node **top, int data) {
+    struct node *new_node = (struct node *)malloc(sizeof(struct node));
+    new_node->data = data;
+    new_node->next = top;
+    top = new_node;
 }
 
-int show(struct node *top){
-	struct node *cur = top;
-	printf("top end\n");
-	while (cur != NULL){
-		printf("%d\n", pop(cur));
-	}
-	printf("lowest top\n");
+int pop(struct node **top) {
+
+    struct node *temp = top;
+    int pop_data = temp->data;
+    printf("%d", pop_data);
+    top = top->next;
+    free(temp);
+    return 0; 
 }
-int main(){
-	int num;
-	for(int i = 0; i < 3; i++){
-		scanf("%d", &num);
-		push(struct node *top, num);
-	
-	}
-	show(node);
-	return 0;
+
+int main() {
+    float num;
+   struct node *top = NULL;
+    do {
+        scanf("%f", &num);
+        if (num > 0 && (int)num == num) { 
+            push(&top ,(int)num);
+        }
+    } while (num > 0 && (int)num == num);
+    printf("Print Stack\n");
+    pop(&top);
+    pop(&top);
+    pop(&top);
+
+    return 0;
 }
+
