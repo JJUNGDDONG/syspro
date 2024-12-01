@@ -7,30 +7,41 @@ struct node {
     struct node *next;
 };
 
-struct stack_top {
-    struct node *top;
+struct queue {
+    struct node *head;
+    struct node *tail;
 };
 
-void init(struct stack_top *s) {
-    s->top = NULL;
+void init(struct queue *q) {
+    q->head = NULL;
+    q->tail = NULL;
 }
 
-int empty(struct stack_top *s) {
-    return (s->top == NULL);
+int empty(struct queue *q) {
+    return (q->head == NULL);
 }
 
-void push(struct stack_top *s, int data) {
+void addq(struct queue *q, int data) {
     struct node *temp = (struct node *)malloc(sizeof(struct node));
     temp->data = data;
-    temp->next = s->top;
-    s->top = temp;
+    temp->next = NULL;
+    if (q->tail != NULL) {
+        q->tail->next = temp;
+    }
+    q->tail = temp;
+    if (q->head == NULL) {
+        q->head = temp;
+    }
 }
 
-void pop_all(struct stack_top *s) {
-    while (!empty(s)) {
-        struct node *temp = s->top;
+void delete_all(struct queue *q) {
+    while (!empty(q)) {
+        struct node *temp = q->head;
         int data = temp->data;
-        s->top = s->top->next;
+        q->head = q->head->next;
+        if (q->head == NULL) {
+            q->tail = NULL;
+        }
         free(temp);
         printf("%d\n", data);
     }
@@ -45,8 +56,8 @@ int is_valid_integer(const char *str, int *value) {
 int main() {
     char input[100];
     int num;
-    struct stack_top s;
-    init(&s);
+    struct queue q;
+    init(&q);
 
     while (1) {
         scanf("%s", input);
@@ -54,10 +65,10 @@ int main() {
             break;
         }
         if (is_valid_integer(input, &num) && num > 0) {
-            push(&s, num);
+            addq(&q, num);
         } else {
-	    printf("Print stack\n");
-            pop_all(&s);
+	    printf("print queue\n");
+            delete_all(&q);
 	    break;
         }
     }
